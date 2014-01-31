@@ -1,0 +1,9 @@
+# taken from:
+# http://answers.unity3d.com/questions/369755/unity-on-github.html
+Library
+Temp
+*.csproj
+*.pidb
+*.unityproj
+*.sln
+*.userprefs
