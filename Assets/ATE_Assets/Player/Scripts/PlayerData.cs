@@ -2,29 +2,73 @@
 using System.Collections;
 
 public class PlayerData : MonoBehaviour {
-	public int maxHealth;
-	public int lives;
-	public int points;
+	// required scene data
+	private SceneData_Player theSceneData;
+
+	// variables to use
+	[System.NonSerialized]
+	public int
+		curHealth;
+	[System.NonSerialized]
+	public int
+		maxHealth;
+	[System.NonSerialized]
+	public int
+		curLives;
+	[System.NonSerialized]
+	public int
+		maxLives;
+	[System.NonSerialized]
+	public int
+		points;
 
 	// Use this for initialization
-	void Start () {
-		// get the player's scene data object
-		GameObject tempData_Object = GameObject.Find("SceneData_Player");
-		if(tempData_Object == null) {
-			Debug.Log("Scene has no player data!");
+	void Start() {
+		theSceneData = GameObject.FindObjectOfType(typeof(SceneData_Player)) as SceneData_Player;
+
+		// bail if no scene data
+		if(theSceneData == null) {
+			Debug.Log("Player object has no specified scene data!");
+			return;
 		}
-		else {
-			// get the tempData
-			SceneData_Player tempData = (SceneData_Player)tempData_Object.GetComponent("SceneData_Player");
-			// assign the variables from tempData
-			maxHealth = tempData.maxHealth;
-			lives = tempData.lives;
-			points = tempData.points;
-		}
+
+		// assign the variables from the scene data
+		curHealth = theSceneData.curHealth;
+		maxHealth = theSceneData.maxHealth;
+		curLives = theSceneData.curLives;
+		maxLives = theSceneData.maxLives;
+		points = theSceneData.points;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update() {
+		// make sure the scene data is updated
+		theSceneData.curHealth = curHealth;
+		theSceneData.curLives = curLives;
+		theSceneData.points = points;
 	}
+
+
+	// removes lives
+	public void RemoveLives(int amount) {
+		// remove the lives
+		curLives -= amount;
+		
+		// if you died
+		if(curLives < 0) {
+			// do death stuff
+			return;
+		}
+	}
+
+	public void Addlives(int amount) {
+		// remove the lives
+		curLives += amount;
+		
+		// if you died
+		if(curLives > maxLives) {
+			curLives = maxLives;
+		}
+	}
+
 }

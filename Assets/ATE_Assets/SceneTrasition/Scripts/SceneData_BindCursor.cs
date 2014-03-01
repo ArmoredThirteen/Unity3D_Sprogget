@@ -5,10 +5,10 @@ public class SceneData_BindCursor : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		DontDestroyOnLoad(this);
+		DontDestroyOnLoad (this);
 		Screen.lockCursor = true;
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
 		// exit condition for locked cursor
@@ -17,7 +17,7 @@ public class SceneData_BindCursor : MonoBehaviour {
 	}
 
 
-	void OnMouseDown() {
+	void OnMouseDown () {
 		Screen.lockCursor = true;
 	}
 }
